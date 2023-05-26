@@ -1,0 +1,22 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CustomView_from_scratch_android_view" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="ticTacToeDefaultStyleAttr">@style/GlobalTicTacToeStyle</item>
+    </style>
+
+    <style name="Theme.CustomView_from_scratch_android_view" parent="Base.Theme.CustomView_from_scratch_android_view" />
+
+    <style name="TicTacToeDefaultStyle">
+        <item name="firstPlayerColor">@android:color/holo_orange_dark</item>
+        <item name="secondPlayerColor">@android:color/holo_purple</item>
+        <item name="ticTacToeBackgroundColor">@color/white</item>
+        <item name="ticTacToeGridColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="GlobalTicTacToeStyle" parent="TicTacToeDefaultStyle">
+        <item name="firstPlayerColor">@android:color/holo_blue_dark</item>
+        <item name="secondPlayerColor">@android:color/holo_red_dark</item>
+    </style>
+</resources>
