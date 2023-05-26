@@ -18,12 +18,8 @@ class TicTacToeField(
 
     val listeners = mutableSetOf<OnTicTacToeFieldBeenChangedListener>()
 
-    private fun isAddressValid(row: Int, column: Int): Boolean {
-        return (row < rows && column < columns) && (row >= 0 && column >= 0)
-    }
-
     fun getCell(row: Int, column: Int): Cell {
-        return if (isAddressValid(row, column)) {
+        return if (isAddressValid(row, column, this)) {
             matrix[row][column]
         } else {
             throw IllegalArgumentException("Incorrect arguments were passed")
@@ -31,12 +27,18 @@ class TicTacToeField(
     }
 
     fun setCell(row: Int, column: Int, cell: Cell) {
-        if (!isAddressValid(row, column)) return
+        if (!isAddressValid(row, column, this)) return
         if (matrix[row][column] == cell) return
 
         matrix[row][column] = cell
         listeners.forEach {
             it?.invoke(cell)
+        }
+    }
+
+    companion object {
+        fun isAddressValid(row: Int, column: Int, ticTacToeField: TicTacToeField): Boolean {
+            return (row < ticTacToeField.rows && column < ticTacToeField.columns) && (row >= 0 && column >= 0)
         }
     }
 }

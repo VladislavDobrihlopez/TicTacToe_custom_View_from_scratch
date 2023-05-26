@@ -7,10 +7,13 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
 import java.lang.Float.min
 import java.lang.Integer.max
 import kotlin.properties.Delegates
+
+typealias OnCellTouchedAction = (Int, Int, TicTacToeField) -> Unit
 
 class TicTacToeView(
     context: Context,
@@ -22,6 +25,8 @@ class TicTacToeView(
     private var backgroundColorValue by Delegates.notNull<Int>()
     private var secondPlayerColorValue by Delegates.notNull<Int>()
     private var firstPlayerColorValue by Delegates.notNull<Int>()
+
+    var onCellTouchedListener: OnCellTouchedAction? = null
 
     var gameField: TicTacToeField? = null
         set(value) {
@@ -277,6 +282,39 @@ class TicTacToeView(
         )
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val field = gameField ?: return false
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                return true
+            }
+
+            MotionEvent.ACTION_UP -> {
+                val touchedX = event.x
+                val touchedY = event.y
+
+                val row = getRowNumberThatContains(touchedY)
+                val column = getColumnNumberThatContains(touchedX)
+
+                if (!TicTacToeField.isAddressValid(row, column, field)) {
+                    return false
+                }
+
+                onCellTouchedListener?.invoke(row, column, field)
+            }
+        }
+        return true
+    }
+
+    private fun getRowNumberThatContains(y: Float): Int {
+        return ((y - fieldArea.top) / cellSize).toInt()
+    }
+
+    private fun getColumnNumberThatContains(x: Float): Int {
+        return ((x - fieldArea.left) / cellSize).toInt()
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         updateViewBoundaries()
@@ -304,7 +342,7 @@ class TicTacToeView(
     }
 
     private val listener: OnTicTacToeFieldBeenChangedListener = {
-
+        invalidate()
     }
 
     companion object {
