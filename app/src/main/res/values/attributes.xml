@@ -5,6 +5,7 @@
         <attr name="secondPlayerColor" format="color" />
         <attr name="ticTacToeBackgroundColor" format="color" />
         <attr name="ticTacToeGridColor" format="color" />
+        <attr name="ticTacToeSelectedCellColor" format="color" />
     </declare-styleable>
 
     <attr name="ticTacToeDefaultStyleAttr" format="reference" />
