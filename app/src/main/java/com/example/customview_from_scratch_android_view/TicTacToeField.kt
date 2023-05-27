@@ -36,6 +36,14 @@ class TicTacToeField(
         }
     }
 
+    fun clear() {
+        for (i in matrix.indices) {
+            for (j in 0 until matrix[i].size) {
+                matrix[i][j] = Cell.EMPTY
+            }
+        }
+    }
+
     companion object {
         fun isAddressValid(row: Int, column: Int, ticTacToeField: TicTacToeField): Boolean {
             return (row < ticTacToeField.rows && column < ticTacToeField.columns) && (row >= 0 && column >= 0)

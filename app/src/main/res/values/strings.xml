@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">customView_from_scratch_android_view</string>
     <string name="generate_next_field">Generate next field</string>
+    <string name="clear">Clear</string>
+    <string name="confirmation">Подтверждение</string>
+    <string name="clear_game_field">Очистить поле для игры?</string>
+    <string name="generate_new_game_field">Сгенерировать новое поле для игры?</string>
+    <string name="confirm">Да</string>
+    <string name="dismiss">Нет</string>
 </resources>

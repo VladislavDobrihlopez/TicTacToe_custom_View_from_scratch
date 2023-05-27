@@ -444,6 +444,14 @@ class TicTacToeView(
         fieldArea.bottom = fieldArea.top + areaSupposedToBeWhenCalculatingByHeight
     }
 
+    fun clearGameField() {
+        val field = gameField ?: return
+        field.clear()
+        currentSelectedRow = -1
+        currentSelectedColumn = -1
+        invalidate()
+    }
+
     private val listener: OnTicTacToeFieldBeenChangedListener = {
         invalidate()
     }

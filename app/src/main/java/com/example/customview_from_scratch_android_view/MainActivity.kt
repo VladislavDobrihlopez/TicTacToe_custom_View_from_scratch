@@ -13,6 +13,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val askForClearingDialog = EnsureClearingFieldDialogFragment()
+
+        askForClearingDialog.callback = {
+            if (it) {
+                binding.ticTacToeField.clearGameField()
+            }
+        }
+
+        val askForGeneratingDialog = EnsureGeneratingFieldDialogFragment()
+
+        askForGeneratingDialog.callback = {
+            if (it) {
+                val rows = Random.nextInt(7, 12)
+                val columns = Random.nextInt(7, 12)
+                binding.ticTacToeField.gameField = TicTacToeField(rows, columns)
+            }
+        }
+
         binding.ticTacToeField.onCellTouchedListener = { row, column, gameField ->
             if (gameField.getCell(row, column) == Cell.EMPTY) {
                 if (isTimeForFirstPlayerToMove) {
@@ -24,27 +42,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.buttonClearField.setOnClickListener {
+            askForClearingDialog.show(supportFragmentManager, "dialog")
+        }
+
         binding.buttonNextRandomGameField.setOnClickListener {
-            val rows = Random.nextInt(7, 12)
-            val columns = Random.nextInt(7, 12)
-            binding.ticTacToeField.gameField = TicTacToeField(rows, columns).also {
-//                for (row in 0 until rows) {
-//                    for (column in 0 until columns) {
-//                        it.setCell(
-//                            row,
-//                            column,
-//                            when (Random.nextInt(3)) {
-//                                0 -> Cell.EMPTY
-//                                1 -> Cell.PLAYER_1
-//                                2 -> Cell.PLAYER_2
-//                                else -> {
-//                                    throw IllegalStateException()
-//                                }
-//                            }
-//                        )
-//                    }
-//                }
-            }
+            askForGeneratingDialog.show(supportFragmentManager, "dialog")
         }
     }
 }
